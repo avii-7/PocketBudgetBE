@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:pocketBudgetBE}",
+            "name": "Debug PocketBudgetBE",
+            "program": "${workspaceFolder:pocketBudgetBE}/.build/debug/PocketBudgetBE",
+            "preLaunchTask": "swift: Build Debug PocketBudgetBE"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:pocketBudgetBE}",
+            "name": "Release PocketBudgetBE",
+            "program": "${workspaceFolder:pocketBudgetBE}/.build/release/PocketBudgetBE",
+            "preLaunchTask": "swift: Build Release PocketBudgetBE"
+        }
+    ]
+}
