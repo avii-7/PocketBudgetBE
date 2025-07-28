@@ -4,6 +4,7 @@ import Vapor
 
 // configures your application
 public func configure(_ app: Application) async throws {
+    
     app.databases.use(
         .postgres(
             configuration: .init(
@@ -16,5 +17,8 @@ public func configure(_ app: Application) async throws {
         ),
         as: .psql
     )
+    
+    app.migrations.add(MigrationV1())
+    
     try routes(app)
 }
