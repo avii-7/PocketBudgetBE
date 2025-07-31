@@ -1,4 +1,3 @@
-import Fluent
 import FluentPostgresDriver
 import Vapor
 
@@ -9,16 +8,17 @@ public func configure(_ app: Application) async throws {
         .postgres(
             configuration: .init(
                 hostname: "localhost",
-                username: "vapor",
-                password: "vapor",
-                database: "vapor",
+                port: 5432,
+                username: "postgres",
+                password: "postgres",
+                database: "postgres",
                 tls: .disable
             )
         ),
         as: .psql
     )
     
-    app.migrations.add(MigrationV1())
+    app.migrations.add(CreateUser())
     
     try routes(app)
 }
