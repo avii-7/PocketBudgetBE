@@ -1,5 +1,5 @@
 //
-//  CreateUser.swift
+//  CreateTables.swift
 //  PocketBudgetBE
 //
 //  Created by Arun on 29/07/25.
@@ -7,7 +7,7 @@
 
 import FluentKit
 
-struct CreateUser: AsyncMigration {
+struct CreateTables: AsyncMigration {
     
     func prepare(on database: any Database) async throws {
         try await database.schema(UserModel.schema)

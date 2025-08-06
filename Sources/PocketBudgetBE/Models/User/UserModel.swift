@@ -8,7 +8,6 @@
 import Foundation
 import Fluent
 
-
 final class UserModel: Model, @unchecked Sendable {
     
     static let schema = "UserModel"
@@ -17,7 +16,7 @@ final class UserModel: Model, @unchecked Sendable {
     var id: UUID?
     
     @Field(key: "display_name")
-    var displayName: String?
+    var displayName: String
     
     @Field(key: "auth_provider")
     var authProvider: String

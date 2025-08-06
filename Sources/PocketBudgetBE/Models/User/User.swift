@@ -6,14 +6,11 @@
 //
 
 import Foundation
+import Vapor
 
-struct User: Codable {
+struct User: Content {
     
-    let id: UUID
+    let id: UUID?
     
     let displayName: String
-    
-    let authProvider: String
-    
-    let authProviderId: String
 }

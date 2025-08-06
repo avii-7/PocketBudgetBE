@@ -18,7 +18,7 @@ public func configure(_ app: Application) async throws {
         as: .psql
     )
     
-    app.migrations.add(CreateUser())
+    app.migrations.add(CreateTables())
     
     try routes(app)
 }
