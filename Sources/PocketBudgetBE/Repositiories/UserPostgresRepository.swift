@@ -43,4 +43,10 @@ final class UserPostgresRepository: UserRespository {
         try await userModel.create(on: request.db)
         return UserMapper.map(user: userModel)
     }
+    
+    func deleteUser(by id: UUID) async throws {
+        try await query()
+            .filter(\.$id == id)
+            .delete()
+    }
 }

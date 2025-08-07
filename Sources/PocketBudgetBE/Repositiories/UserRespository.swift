@@ -14,4 +14,6 @@ protocol UserRespository {
     func getUser(id: UUID) async throws -> User?
     
     func createUser(_ user: User) async throws -> User
+    
+    func deleteUser(by id: UUID) async throws
 }
