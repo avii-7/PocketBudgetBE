@@ -24,13 +24,12 @@ struct UserController: RouteCollection {
     }
     
     private func createUser(req: Request) async throws -> Response {
-        let decodedUser = try req.content.decode(User.self)
+        let decodedUser = try req.content.decode(UserResponse.self)
         let user = try await req.user.createUser(decodedUser)
         let response = Response(status: .created)
         try response.content.encode(user)
         return response
     }
-    
     
     private func deleteUser(req: Request) async throws -> Response {
         let body = try req.content.decode([String: String].self)

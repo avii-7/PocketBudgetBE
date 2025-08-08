@@ -9,7 +9,7 @@ struct UserMapper {
     
     private init() { }
     
-    static func map(user: UserModel) -> User {
-        User(id: user.id, displayName: user.displayName)
+    static func map(from user: User) -> UserResponse {
+        UserResponse(id: user.id, displayName: user.displayName)
     }
 }

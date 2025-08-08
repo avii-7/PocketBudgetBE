@@ -7,11 +7,11 @@
 
 //struct UserInMeomoryRepository: UserRespository {
 //    
-//    func getUsers() -> [User] {
+//    func getUsers() -> [UserResponse] {
 //        
 //    }
 //    
-//    func getUser(id: Int) -> User? {
+//    func getUser(id: Int) -> UserResponse? {
 //        
 //    }
 //}

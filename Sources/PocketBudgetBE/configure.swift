@@ -11,7 +11,7 @@ public func configure(_ app: Application) async throws {
                 port: 5432,
                 username: "postgres",
                 password: "postgres",
-                database: "postgres",
+                database: "pocket_budget",
                 tls: .disable
             )
         ),
