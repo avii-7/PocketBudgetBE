@@ -15,7 +15,7 @@ protocol UserRespository: Sendable {
     
     func getUser(id: UUID) async throws -> UserResponse?
     
-    func createUser(_ user: UserResponse) async throws -> UserResponse
+    func createUser(_ user: NewUserRequest) async throws -> UserResponse
     
     func deleteUser(by id: UUID) async throws
 }
@@ -33,10 +33,9 @@ final class UserPostgresRepository: UserRespository {
         db.query(User.self)
     }
     
-    func createUser(_ user: UserResponse) async throws -> UserResponse {
+    func createUser(_ user: NewUserRequest) async throws -> UserResponse {
         let user = User(
-            id: user.id,
-            displayName: user.displayName,
+            displayName: user.name,
             authProvider: "test",
             authProviderId: "test"
         )

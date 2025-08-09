@@ -7,9 +7,13 @@
 
 import Vapor
 
+struct NewUserRequest: Decodable {
+    let name: String
+}
+
 struct UserResponse: Content {
     
-    let id: UUID?
+    let id: UUID
     
     let displayName: String
 }

@@ -6,12 +6,20 @@ func routes(_ app: Application) throws {
         "It works! 🔥"
     }
     
-    // TODO: - Try to use app.db to create repos.
     let group = app.grouped("api")
     
-    let userRepository = UserPostgresRepository(db: app.db)
-    try group.register(collection: UserController(repository: userRepository))
+    let userRepository: any UserRespository
+    let budgetRepository: any BudgetRepository
     
-    let budgetRepository = BudgetPostgresRepository(db: app.db)
+    if app.environment == .testing {
+        userRepository = UserInMeomoryRepository()
+        budgetRepository = BudgetInMemoryRepository()
+    }
+    else {
+        userRepository = UserPostgresRepository(db: app.db)
+        budgetRepository = BudgetPostgresRepository(db: app.db)
+    }
+
+    try group.register(collection: UserController(repository: userRepository))
     try group.register(collection: BudgetController(repository: budgetRepository))
 }

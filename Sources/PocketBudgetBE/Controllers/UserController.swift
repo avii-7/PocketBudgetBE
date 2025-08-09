@@ -31,7 +31,7 @@ struct UserController: RouteCollection, Sendable {
     }
     
     private func createUser(req: Request) async throws -> Response {
-        let decodedUser = try req.content.decode(UserResponse.self)
+        let decodedUser = try req.content.decode(NewUserRequest.self)
         let user = try await repository.createUser(decodedUser)
         let response = Response(status: .created)
         try response.content.encode(user)

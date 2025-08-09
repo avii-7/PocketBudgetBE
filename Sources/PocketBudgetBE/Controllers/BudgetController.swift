@@ -9,9 +9,9 @@ import Vapor
 
 struct BudgetController: RouteCollection, Sendable {
     
-    private let repository: any BudgetRespository
+    private let repository: any BudgetRepository
     
-    init(repository: any BudgetRespository) {
+    init(repository: any BudgetRepository) {
         self.repository = repository
     }
     
