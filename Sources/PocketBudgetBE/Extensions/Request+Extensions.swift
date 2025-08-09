@@ -10,7 +10,19 @@ import Vapor
 
 extension Request {
     
-    var user: any UserRespository {
-        UserPostgresRepository(request: self)
+//    var user: any UserRespository {
+//        UserPostgresRepository(request: self)
+//    }
+    
+//    var budget: any BudgetRespository {
+//        BudgetPostgresRepository(request: self)
+//    }
+}
+
+enum ParameterConstant: String {
+    case userId
+    
+    var pathValue: String {
+        ":\(rawValue)"
     }
 }

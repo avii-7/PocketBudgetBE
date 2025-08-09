@@ -7,30 +7,36 @@
 
 import Vapor
 import Fluent
+import Foundation
 
-protocol BudgetRespository {
+protocol BudgetRespository: Sendable {
     
+    func create(_ budget: NewBudgetRequest) async throws -> BudgetResponse
+    
+    func getAll(_ userId: UUID) async throws -> [BudgetResponse]
 }
 
+// TODO: - request.db.query()
 struct BudgetPostgresRepository: BudgetRespository {
     
-    private let request: Request
+    private let db: any Database
     
-    init(request: Request) {
-        self.request = request
+    init(db: any Database) {
+        self.db = db
     }
     
     private func query() -> QueryBuilder<Budget> {
-        Budget.query(on: request.db)
+        return db.query(Budget.self)
     }
     
-    func createBudget(_ budget: NewBudget) async throws -> BudgetResponse {
-        let budget = Budget(
-            userId: budget.userId,
-            name: budget.name
-        )
-        
-        try await budget.create(on: request.db)
+    func create(_ budget: NewBudgetRequest) async throws -> BudgetResponse {
+        let budget = Budget(userId: budget.userId, name: budget.name)
+        try await budget.create(on: db)
         return BudgetMapper.map(from: budget)
+    }
+    
+    func getAll(_ userId: UUID) async throws -> [BudgetResponse] {
+        let budgets = try await query().filter(\.$userId == userId).all()
+        return budgets.map(BudgetMapper.map(from:))
     }
 }

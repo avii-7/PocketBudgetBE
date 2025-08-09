@@ -7,7 +7,11 @@
 
 import Vapor
 
-struct NewBudget {
+struct UserBudgetRequest: Decodable {
+    let userId: UUID
+}
+
+struct NewBudgetRequest: Decodable {
     let userId: UUID
     let name: String
 }

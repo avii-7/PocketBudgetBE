@@ -7,7 +7,13 @@
 
 import Vapor
 
-struct UserController: RouteCollection {
+struct UserController: RouteCollection, Sendable {
+    
+    private let repository: any UserRespository
+    
+    init(repository: any UserRespository) {
+        self.repository = repository
+    }
     
     func boot(routes: any RoutesBuilder) throws {
         let users = routes.grouped("users")
@@ -16,8 +22,9 @@ struct UserController: RouteCollection {
         users.delete(use: deleteUser)
     }
     
+    
     private func getUsers(req: Request) async throws -> Response {
-        let users = try await req.user.getUsers()
+        let users = try await repository.getUsers()
         let response = Response(status: .ok)
         try response.content.encode(users)
         return response
@@ -25,7 +32,7 @@ struct UserController: RouteCollection {
     
     private func createUser(req: Request) async throws -> Response {
         let decodedUser = try req.content.decode(UserResponse.self)
-        let user = try await req.user.createUser(decodedUser)
+        let user = try await repository.createUser(decodedUser)
         let response = Response(status: .created)
         try response.content.encode(user)
         return response
@@ -40,7 +47,7 @@ struct UserController: RouteCollection {
             return Response(status: .badRequest)
         }
         
-        try await req.user.deleteUser(by: userUUID)
+        try await repository.deleteUser(by: userUUID)
         return Response(status: .ok)
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import Vapor
 import FluentKit
 
-protocol UserRespository {
+protocol UserRespository: Sendable {
     
     func getUsers() async throws -> [UserResponse]
     
@@ -23,14 +23,14 @@ protocol UserRespository {
 // https://theswiftdev.com/the-repository-pattern-for-vapor-4/
 final class UserPostgresRepository: UserRespository {
     
-    private let request: Request
+    private let db: any Database
     
-    init(request: Request) {
-        self.request = request
+    init(db: any Database) {
+        self.db = db
     }
     
     private func query() -> QueryBuilder<User> {
-        User.query(on: request.db)
+        db.query(User.self)
     }
     
     func createUser(_ user: UserResponse) async throws -> UserResponse {
@@ -40,10 +40,10 @@ final class UserPostgresRepository: UserRespository {
             authProvider: "test",
             authProviderId: "test"
         )
-        try await user.create(on: request.db)
+        try await user.create(on: db)
         return UserMapper.map(from: user)
     }
-        
+    
     func getUsers() async throws -> [UserResponse] {
         try await query().all().map { UserMapper.map(from: $0) }
     }
