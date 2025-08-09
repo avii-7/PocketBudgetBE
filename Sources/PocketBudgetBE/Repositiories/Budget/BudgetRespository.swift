@@ -9,15 +9,14 @@ import Vapor
 import Fluent
 import Foundation
 
-protocol BudgetRespository: Sendable {
+protocol BudgetRepository: Sendable {
     
     func create(_ budget: NewBudgetRequest) async throws -> BudgetResponse
     
     func getAll(_ userId: UUID) async throws -> [BudgetResponse]
 }
 
-// TODO: - request.db.query()
-struct BudgetPostgresRepository: BudgetRespository {
+struct BudgetPostgresRepository: BudgetRepository {
     
     private let db: any Database
     

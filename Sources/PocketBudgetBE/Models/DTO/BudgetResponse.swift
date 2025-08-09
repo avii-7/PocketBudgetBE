@@ -11,7 +11,7 @@ struct UserBudgetRequest: Decodable {
     let userId: UUID
 }
 
-struct NewBudgetRequest: Decodable {
+struct NewBudgetRequest: Content {
     let userId: UUID
     let name: String
 }
