@@ -8,16 +8,15 @@
 import Foundation
 import Fluent
 
-
-final class UserModel: Model, @unchecked Sendable {
+final class User: Model, @unchecked Sendable {
     
-    static let schema = "UserModel"
+    static let schema = "users"
     
     @ID(key: .id)
     var id: UUID?
     
     @Field(key: "display_name")
-    var displayName: String?
+    var displayName: String
     
     @Field(key: "auth_provider")
     var authProvider: String

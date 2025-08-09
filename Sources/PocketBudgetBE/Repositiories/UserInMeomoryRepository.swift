@@ -5,6 +5,13 @@
 //  Created by Arun on 08/06/25.
 //
 
-struct UserInMeomoryRepository: UserRespository {
-    
-}
+//struct UserInMeomoryRepository: UserRespository {
+//    
+//    func getUsers() -> [UserResponse] {
+//        
+//    }
+//    
+//    func getUser(id: Int) -> UserResponse? {
+//        
+//    }
+//}
